@@ -399,17 +399,38 @@ export interface ApiProductProduct extends Schema.CollectionType {
     singularName: 'product';
     pluralName: 'products';
     displayName: 'product';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String &
+    title: Attribute.String &
       Attribute.Required &
       Attribute.SetMinMaxLength<{
         minLength: 3;
         maxLength: 70;
       }>;
+    slug: Attribute.UID &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 3;
+        maxLength: 110;
+      }>;
+    description: Attribute.Text;
+    image: Attribute.Media & Attribute.Required;
+    category: Attribute.Enumeration<['tshirt', 'mug', 'hoddie', 'sticker']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'tshirt'>;
+    size: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 70;
+      }>;
+    color: Attribute.Enumeration<['red', 'blue', 'green', 'black', 'white']> &
+      Attribute.Required;
+    price: Attribute.Integer & Attribute.Required & Attribute.DefaultTo<0>;
+    availableQty: Attribute.Integer & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
